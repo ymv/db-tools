@@ -1,0 +1,17 @@
+DB tools
+========
+
+Database name service
+---------------------
+
+Make ~/.myns/databases like this:
+
+    [foo]
+    host=123.456.789.100
+    user=foo
+    password=bar
+    database=foo
+
+Then call mysql like this:
+
+    mysql $(myns foo)
