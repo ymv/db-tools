@@ -21,6 +21,18 @@ def mysql_cli_arguments(params):
     if 'database' in params:
         yield params['database']
 
+def connect(name, **extra):
+    import MySQLdb
+    config = read_configs()
+    params = dict(config.items(name))
+    kwargs = {}
+    for p, a, f in [('host', 'host', str), ('port', 'port', int), ('user', 'user', str), ('password', 'passwd', str), ('database', 'db', str)]:
+        if p in params:
+            kwargs[a] = f(params[p])
+    kwargs['charset'] = 'utf8'
+    kwargs.update(extra)
+    return MySQLdb.connect(**kwargs)
+
 def main():
     if len(sys.argv) != 2:
         sys.stderr.write('\n'.join([
